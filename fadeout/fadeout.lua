@@ -1,3 +1,30 @@
+--[[
+* Fadeout - Copyright (c) 2020 Poroburu [poroburu@gmail.com]
+*
+* This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
+* To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/ or send a letter to
+* Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+*
+* By using Fadeout, you agree to the above license and its terms.
+*
+*      Attribution - You must give appropriate credit, provide a link to the license and indicate if changes were
+*                    made. You must do so in any reasonable manner, but not in any way that suggests the licensor
+*                    endorses you or your use.
+*
+*   Non-Commercial - You may not use the material (Fadeout) for commercial purposes.
+*
+*   No-Derivatives - If you remix, transform, or build upon the material (Fadeout), you may not distribute the
+*                    modified material. You are, however, allowed to submit the modified works back to the original
+*                    Fadeout project in attempt to have it added to the original project.
+*
+* You may not apply legal terms or technological measures that legally restrict others
+* from doing anything the license permits.
+*
+* No warranties are given.
+]]--
+
+
+
 _addon.author = 'Poroburu';
 _addon.name = 'Fadeout';
 _addon.version = '1.0';
@@ -16,36 +43,8 @@ local default_config =
 local configs = default_config;
 local timestamp = os.date(string.format('\31\%c[%s]\30\01 ', configs.color, configs.format), os.time());
 ---------------------------------------------------------------------------------------------------
--- func: command
--- desc: Event called when a command was entered.
----------------------------------------------------------------------------------------------------
-ashita.register_event('command', function(command, ntype)
-    -- Get the command arguments..
-    local args = command:args();
-    if (args[1] ~= '/fadeout') then
-        return false;
-    end
 
-    -- Print test message
-    if (#args == 1) then
-        print('Hello');
-        local party     = AshitaCore:GetDataManager():GetParty();
-        local ZoneName	= AshitaCore:GetResourceManager():GetString('areas', party:GetMemberZone(0));
-        print(ZoneName)
-        local timestamp = os.date(string.format('\31\%c[%s]\30\01 ', configs.color, configs.format));
-        print(timestamp)
-        return true;
-    end
-    -- Prints the addon help..
-    print_help('/sexchange', {
-        { '/sexchange',                 '- Toggles SexChange on and off.' },
-        { '/sexchange on',              '- Turns SexChange on.' },
-        { '/sexchange off',             '- Turns SexChange off.' },
-        { '/sexchange race [raceid]',   '- Sets the race type to apply to the player.' },
-        { '/sexchange hair [hairid]',   '- Sets the hair type to apply to the player.' },
-    });
-    return true;
-end);
+
 
 ashita.register_event('incoming_packet', function(id, size, packet, packet_modified, blocked)
     
