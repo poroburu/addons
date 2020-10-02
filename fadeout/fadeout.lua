@@ -53,9 +53,9 @@ ashita.register_event('incoming_packet', function(id, size, packet, packet_modif
         local party     = AshitaCore:GetDataManager():GetParty();
         local ZoneName	= AshitaCore:GetResourceManager():GetString('areas', party:GetMemberZone(0));
         
-        if ((target == 267 or target == 271) and ZoneName == 'Temple of Uggalepih') then
             --print(target)
             --print(ZoneName)
+        if ((target == 267 or target == 271) and ZoneName == 'Temple of Uggalepih') or ((target == 66) and ZoneName == 'Labyrinth of Onzozo') then
             local entity = GetEntity(target);
             local name = entity.Name
             local delay = 60 * 16 + 2
