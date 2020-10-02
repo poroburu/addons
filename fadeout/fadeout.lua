@@ -27,7 +27,7 @@
 
 _addon.author = 'Poroburu';
 _addon.name = 'Fadeout';
-_addon.version = '1.0';
+_addon.version = '1.1.0';
 
 require 'common'
 
