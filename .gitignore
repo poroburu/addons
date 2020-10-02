@@ -1,5 +1,6 @@
 **/
 !/fadeout
+!/chaintimer
 
 # Compiled Lua sources
 luac.out
