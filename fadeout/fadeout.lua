@@ -1,5 +1,5 @@
 --[[
-* Fadeout - Copyright (c) 2020 Poroburu [poroburu@gmail.com]
+* Fadeout - Copyright (c) 2023 Poroburu [poroburu@gmail.com]
 *
 * This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
 * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/ or send a letter to
@@ -25,9 +25,11 @@
 
 
 
-_addon.author = 'Poroburu';
-_addon.name = 'Fadeout';
-_addon.version = '1.1.0';
+addon.author = 'Poroburu';
+addon.name = 'Fadeout';
+addon.version = '1.2.0';
+addon.desc = 'Sozu/LoO timer PH ToD Proof of Concept'
+addon.link= 'https://github.com/poroburu/addons/tree/master/fadeout'
 
 require 'common'
 
@@ -41,15 +43,15 @@ local default_config =
     close_bracket   = ']'
 };
 local configs = default_config;
-local timestamp = os.date(string.format('\31\%c[%s]\30\01 ', configs.color, configs.format), os.time());
+local timestamp = os.date(string.format('\31%c[%s]\30\01 ', configs.color, configs.format), os.time());
 ---------------------------------------------------------------------------------------------------
 
 
 
-ashita.register_event('incoming_packet', function(id, size, packet, packet_modified, blocked)
+ashita.events.register('packet_in', 'packet_in_cb', function(e)
     
-    if (id == 0x38) then
-        local target = struct.unpack('H', packet,0x10 + 1);
+    if (e.id == 0x38) then
+        local target = struct.unpack('H', e.data,0x10 + 1);
         local party     = AshitaCore:GetDataManager():GetParty();
         local ZoneName	= AshitaCore:GetResourceManager():GetString('areas', party:GetMemberZone(0));
         
@@ -60,7 +62,6 @@ ashita.register_event('incoming_packet', function(id, size, packet, packet_modif
             local name = entity.Name
             local delay = 60 * 16 + 2
             local reps = 1
-            timestamp = os.date(string.format('\31\%c[%s]\30\01 ', configs.color, configs.format), os.time() + delay);
             print(timestamp .. name .. ' respawn')
             ashita.timer.create(delay-600, delay-600, reps, 
             function()
@@ -114,4 +115,3 @@ ashita.register_event('incoming_packet', function(id, size, packet, packet_modif
     end    
     return false;
 end);
-
